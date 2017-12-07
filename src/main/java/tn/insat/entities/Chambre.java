@@ -1,6 +1,9 @@
-package tn.insat;
+package tn.insat.entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -13,16 +16,17 @@ import java.util.Set;
 public class Chambre {
 
     @Id
-    private int idChambre;
+    private Integer idChambre;
 
-    @OneToMany(mappedBy="chambre", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany(mappedBy="chambre", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
+    @JsonIgnoreProperties("chambre")
     private Set<Reservation> reservations ;
 
     public int getIdChambre() {
         return idChambre;
     }
 
-    public void setIdChambre(int idChambre) {
+    public void setIdChambre(Integer idChambre) {
         this.idChambre = idChambre;
     }
 
@@ -34,8 +38,9 @@ public class Chambre {
         this.reservations = reservations;
     }
 
-    public Chambre(int id) {
+    public Chambre(Integer id) {
         this.idChambre = id;
+        this.reservations= new HashSet<>(0);
     }
 
     public Chambre() {

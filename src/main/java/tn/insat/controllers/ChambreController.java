@@ -1,9 +1,13 @@
-package tn.insat;
+package tn.insat.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import tn.insat.entities.Chambre;
+import tn.insat.services.ChambreService;
+
+import java.util.List;
 
 /**
  * Created by ASUS on 06/12/2017.
@@ -11,27 +15,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ChambreController  {
 @Autowired
-ChambreRepository chambreRepository;
+ChambreService chambreService;
     @RequestMapping("/add")
     @ResponseBody
-    public Chambre addChambre(int id){
+    public Chambre addChambre(Integer id){
 
-        Chambre ch= new Chambre(id);
-        chambreRepository.save(ch);
+        return(chambreService.add(id));
 
-        return(ch);
 
     }
 
 
-    @RequestMapping("/getOne")
+    @RequestMapping("/chambres/getAll")
     @ResponseBody
-    public Chambre getChambre(int id){
+    public List<Chambre> getChambre(){
 
 
-        return(chambreRepository.findOne(id));
+        return(chambreService.getAll());
 
     }
+
+
 
 
 }
